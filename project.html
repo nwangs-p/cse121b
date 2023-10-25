@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random User Generator</title>
+    <link rel="stylesheet" href="styles/project.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Random User Generator</h1>
+        <button id="generate">Generate User</button>
+        <div id="user-container"></div>
+    </div>
+    <footer>
+      &copy;<span id="year"></span> | Week 05 - Fetching Temple Data | CSE 121b
+    </footer>
+    <script>
+      document.getElementById("year").innerHTML = new Date().getFullYear();
+    </script>
+    <script type="module" src="scripts/project.js"></script>
+</body>
+</html>
