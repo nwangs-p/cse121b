@@ -1,31 +1,31 @@
 const userContainer = document.getElementById('user-container');
 const generateButton = document.getElementById('generate');
 
-
+// Define an array to store the random users.
+const users = [];
 
 generateButton.addEventListener('click', () => {
-    
+  // Fetch random user data and add each user to the users array.
+  fetch('https://randomuser.me/api/?results=10')
+    .then(response => response.json())
+    .then(data => {
+      for (const user of data.results) {
+        users.push(user);
+      }
 
-    // Use Fetch to get random user data
-    // fetch('https://randomuser.me/api/?gender=female&nationality=us&age=25')
-    fetch('https://randomuser.me/api/?results=10')
-        .then(response => response.json())
-        .then(data => {
-            const user = data.results[0];
+      // Use the filter() array method to filter the users array and include users from United States only.
+      const usersFromUS = users.filter(user => user.location.country === 'United States');
 
-            // Generate HTML using template literals
-            const userHtml = `
-                <img src="${user.picture.large}" alt="User Image">
-                <h2>${user.name.first} ${user.name.last}</h2>
-                <p>Email: ${user.email}</p>
-                <p>Location: ${user.location.city}, ${user.location.state}</p>
-            `;
+      // Randomly select one user from the filtered list.
+      const randomUser = usersFromUS[Math.floor(Math.random() * usersFromUS.length)];
 
-            userContainer.innerHTML = userHtml;
-
-           
-            // h2.style.color = 'white';
-            // p.style.color = 'red';
-        })
-        .catch(error => console.error('Error:', error));
+      //Randomly display the user .
+      userContainer.innerHTML = `
+        <img src="${randomUser.picture.large}" alt="User Image">
+        <h2>${randomUser.name.first} ${randomUser.name.last}</h2>
+        <p>Email: ${randomUser.email}</p>
+        <p>Location: ${randomUser.location.city}, ${randomUser.location.state}</p>
+      `;
+    })
+    .catch(error => console.error('Error:', error));
 });
